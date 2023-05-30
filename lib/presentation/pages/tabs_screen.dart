@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app/data/dataSources/local/dummy_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals_app/domain/models/meals_model.dart';
 import 'package:meals_app/presentation/pages/categories_screen.dart';
 import 'package:meals_app/presentation/pages/filters_screen.dart';
 import 'package:meals_app/presentation/pages/meals_screen.dart';
+import 'package:meals_app/presentation/state%20management/providers/meals_provider.dart';
 import 'package:meals_app/presentation/widgets/main_drawer.dart';
 import 'package:meals_app/utils/constants.dart';
 
-class TabsScreen extends StatefulWidget {
+class TabsScreen extends ConsumerStatefulWidget {
   const TabsScreen({super.key});
 
   @override
-  State<TabsScreen> createState() => _TabsScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _TabsScreenState();
 }
 
-class _TabsScreenState extends State<TabsScreen> {
+class _TabsScreenState extends ConsumerState<TabsScreen> {
   int _selectPageIndex = 0;
   final List<MealsModel> _favoriteMeals = [];
   Map<Filter, bool> _selectedFilters = kInitialilFilters;
@@ -82,7 +83,12 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final availableMeals = dummyMeals.where((meal) {
+    // mettre en place les recepteurs pour nos Provider
+    /// .read() -> obtenir la data de notre Provider;
+    /// .watch() -> mettre en place un listener // lorsque la data change
+    final meals = ref.watch(mealsProvider);
+
+    final availableMeals = meals.where((meal) {
       if (_selectedFilters[Filter.gutenFree]! && !meal.isGlutenFree) {
         return false;
       }
