@@ -21,6 +21,9 @@ dependencies:
   # images
   transparent_image: ^2.0.1
 
+  # state management
+  flutter_riverpod: ^2.3.6
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
