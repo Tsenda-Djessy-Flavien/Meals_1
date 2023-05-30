@@ -26,14 +26,14 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     });
   }
 
-  void _showInOfMessage(String message) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-      ),
-    );
-  }
+  // void _showInOfMessage(String message) {
+  //   ScaffoldMessenger.of(context).clearSnackBars();
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //     SnackBar(
+  //       content: Text(message),
+  //     ),
+  //   );
+  // }
 
   // void _toggleMealFavoriteStatus(MealsModel meal) {
   //   // verifie si cela existe deja dans la liste ou pas
