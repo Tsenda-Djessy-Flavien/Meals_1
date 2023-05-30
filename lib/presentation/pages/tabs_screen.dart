@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meals_app/domain/models/meals_model.dart';
 import 'package:meals_app/presentation/pages/categories_screen.dart';
 import 'package:meals_app/presentation/pages/filters_screen.dart';
 import 'package:meals_app/presentation/pages/meals_screen.dart';
+import 'package:meals_app/presentation/state%20management/providers/favorites_provider.dart';
 import 'package:meals_app/presentation/state%20management/providers/meals_provider.dart';
 import 'package:meals_app/presentation/widgets/main_drawer.dart';
 import 'package:meals_app/utils/constants.dart';
@@ -17,7 +17,7 @@ class TabsScreen extends ConsumerStatefulWidget {
 
 class _TabsScreenState extends ConsumerState<TabsScreen> {
   int _selectPageIndex = 0;
-  final List<MealsModel> _favoriteMeals = [];
+  // final List<MealsModel> _favoriteMeals = [];
   Map<Filter, bool> _selectedFilters = kInitialilFilters;
 
   void _selectPage(newIndex) {
@@ -35,26 +35,26 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     );
   }
 
-  void _toggleMealFavoriteStatus(MealsModel meal) {
-    // verifie si cela existe deja dans la liste ou pas
-    final isExisting = _favoriteMeals.contains(meal);
+  // void _toggleMealFavoriteStatus(MealsModel meal) {
+  //   // verifie si cela existe deja dans la liste ou pas
+  //   final isExisting = _favoriteMeals.contains(meal);
 
-    if (isExisting) {
-      // isExisting = true
-      setState(() {
-        _favoriteMeals.remove(meal);
-      });
-      _showInOfMessage(REMOVE_TO_FAVORITE);
-      // print('remove ${meal.title}');
-    } else {
-      // isExisting = false
-      setState(() {
-        _favoriteMeals.add(meal);
-      });
-      _showInOfMessage(ADD_TO_FAVORITE);
-      // print('add ${meal.title}');
-    }
-  }
+  //   if (isExisting) {
+  //     // isExisting = true
+  //     setState(() {
+  //       _favoriteMeals.remove(meal);
+  //     });
+  //     _showInOfMessage(REMOVE_TO_FAVORITE);
+  //     // print('remove ${meal.title}');
+  //   } else {
+  //     // isExisting = false
+  //     setState(() {
+  //       _favoriteMeals.add(meal);
+  //     });
+  //     _showInOfMessage(ADD_TO_FAVORITE);
+  //     // print('add ${meal.title}');
+  //   }
+  // }
 
   // quand on press sur le DrawerList,
   // on obtient une valeur differente à l'interieur de cette func
@@ -105,15 +105,16 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     }).toList();
 
     Widget activePage = CategoriesScreen(
-      onToggleMealFavoriteStatus: _toggleMealFavoriteStatus,
+      // onToggleMealFavoriteStatus: _toggleMealFavoriteStatus,
       availableMeals: availableMeals,
     );
     String activePageTitle = CATEGORY;
 
     if (_selectPageIndex == 1) {
+      final favoriteMeals = ref.watch(favoriteMealsProvider);
       activePage = MealsScreen(
-        meals: _favoriteMeals,
-        onToggleMealFavoriteStatus: _toggleMealFavoriteStatus,
+        meals: favoriteMeals,
+        // onToggleMealFavoriteStatus: _toggleMealFavoriteStatus,
       );
       activePageTitle = FAVORITE;
     }
