@@ -15,11 +15,14 @@ import 'package:meals_app/utils/constants.dart';
 // }
 
 class FiltersScreen extends ConsumerStatefulWidget {
-  const FiltersScreen({super.key, required this.currentFilters});
+  const FiltersScreen({
+    super.key,
+    // required this.currentFilters,
+  });
 
   // stocker le filtre selectionner
   // ensuite initialiser nos variables d'état de filtre
-  final Map<Filter, bool> currentFilters;
+  // final Map<Filter, bool> currentFilters;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _FiltersScreenState();
@@ -35,10 +38,15 @@ class _FiltersScreenState extends ConsumerState<FiltersScreen> {
   void initState() {
     super.initState();
     // initlisation des variables d'etat par les values reels qui ont ete selectionner
-    _glutenFreeFilter = widget.currentFilters[Filter.gutenFree]!;
-    _lactoseFreeFilter = widget.currentFilters[Filter.lactoseFree]!;
-    _vegeterianFilter = widget.currentFilters[Filter.vegeterian]!;
-    _veganFilter = widget.currentFilters[Filter.vegan]!;
+    final activeFilters = ref.read(filtersProvider);
+    _glutenFreeFilter = activeFilters[Filter.gutenFree]!;
+    _lactoseFreeFilter = activeFilters[Filter.lactoseFree]!;
+    _vegeterianFilter = activeFilters[Filter.vegeterian]!;
+    _veganFilter = activeFilters[Filter.vegan]!;
+    // _glutenFreeFilter = widget.currentFilters[Filter.gutenFree]!;
+    // _lactoseFreeFilter = widget.currentFilters[Filter.lactoseFree]!;
+    // _vegeterianFilter = widget.currentFilters[Filter.vegeterian]!;
+    // _veganFilter = widget.currentFilters[Filter.vegan]!;
   }
 
   // void _onSelectScreen(idScreen) {
@@ -59,15 +67,24 @@ class _FiltersScreenState extends ConsumerState<FiltersScreen> {
       // drawer: MainDrawer(onSelectScreen: _onSelectScreen),
       body: WillPopScope(
         onWillPop: () async {
-          // ces data seront utiliser dans un autre écran (tabscreen)
-          Navigator.of(context).pop({
+          // update data filter to Provider
+          // ensuite nous stockons ces filters au moment ou nous quittons cette page
+          ref.read(filtersProvider.notifier).setFilter({
             Filter.gutenFree: _glutenFreeFilter,
             Filter.lactoseFree: _lactoseFreeFilter,
             Filter.vegeterian: _vegeterianFilter,
             Filter.vegan: _veganFilter,
           });
+          return true;
+          // ces data seront utiliser dans un autre écran (tabscreen)
+          // Navigator.of(context).pop({
+          //   Filter.gutenFree: _glutenFreeFilter,
+          //   Filter.lactoseFree: _lactoseFreeFilter,
+          //   Filter.vegeterian: _vegeterianFilter,
+          //   Filter.vegan: _veganFilter,
+          // });
           // et coe nous navigons en arrière on doit ici return false
-          return false; // true si on renvoyais ces données dans une database
+          // return false; // true si on renvoyais ces données dans une database
           // les data renvoyé par les navigator.pop
           // seront maintenu lu sur le screen (tabs_screen) qui nous à permit
           //d'acceder à cette écran actuel (filters_screen)
