@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:meals_app/presentation/pages/filters_screen.dart';
+import 'package:meals_app/presentation/state%20management/providers/filters_provider.dart';
 
 const APP_NAME = 'Meals APP';
 

@@ -4,6 +4,7 @@ import 'package:meals_app/presentation/pages/categories_screen.dart';
 import 'package:meals_app/presentation/pages/filters_screen.dart';
 import 'package:meals_app/presentation/pages/meals_screen.dart';
 import 'package:meals_app/presentation/state%20management/providers/favorites_provider.dart';
+import 'package:meals_app/presentation/state%20management/providers/filters_provider.dart';
 import 'package:meals_app/presentation/state%20management/providers/meals_provider.dart';
 import 'package:meals_app/presentation/widgets/main_drawer.dart';
 import 'package:meals_app/utils/constants.dart';
