@@ -17,44 +17,12 @@ class TabsScreen extends ConsumerStatefulWidget {
 
 class _TabsScreenState extends ConsumerState<TabsScreen> {
   int _selectPageIndex = 0;
-  // final List<MealsModel> _favoriteMeals = [];
-  // Map<Filter, bool> _selectedFilters = kInitialilFilters;
 
   void _selectPage(newIndex) {
     setState(() {
       _selectPageIndex = newIndex;
     });
   }
-
-  // void _showInOfMessage(String message) {
-  //   ScaffoldMessenger.of(context).clearSnackBars();
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     SnackBar(
-  //       content: Text(message),
-  //     ),
-  //   );
-  // }
-
-  // void _toggleMealFavoriteStatus(MealsModel meal) {
-  //   // verifie si cela existe deja dans la liste ou pas
-  //   final isExisting = _favoriteMeals.contains(meal);
-
-  //   if (isExisting) {
-  //     // isExisting = true
-  //     setState(() {
-  //       _favoriteMeals.remove(meal);
-  //     });
-  //     _showInOfMessage(REMOVE_TO_FAVORITE);
-  //     // print('remove ${meal.title}');
-  //   } else {
-  //     // isExisting = false
-  //     setState(() {
-  //       _favoriteMeals.add(meal);
-  //     });
-  //     _showInOfMessage(ADD_TO_FAVORITE);
-  //     // print('add ${meal.title}');
-  //   }
-  // }
 
   // quand on press sur le DrawerList,
   // on obtient une valeur differente à l'interieur de cette func
@@ -65,19 +33,6 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
       await Navigator.of(context).push<Map<Filter, bool>>(
         MaterialPageRoute(builder: (context) => const FiltersScreen()),
       );
-      // final result = await Navigator.of(context).push<Map<Filter, bool>>(
-      //   // va prendre la data dans FilterScreen qui seront ici (tabScreen)
-      //   MaterialPageRoute(
-      //     builder: (context) => FiltersScreen(
-      //       currentFilters: _selectedFilters,
-      //     ),
-      //   ),
-      // );
-      // ?? vérifie si la valeur qui le précède est nulle
-      // setState(() {
-      //   _selectedFilters = result ?? kInitialilFilters;
-      // });
-      // print(result);
     }
     // else {
     //   Navigator.of(context).pop(); || 1 idem
